@@ -7,6 +7,7 @@
         public DateTime YearOfPublication { get; set; }
 
         public List<Author> Authors { get; set; } = new List<Author>();
+        public List<Genre> Genres { get; set; } = new List<Genre>();
 
         public User? CurrentUser { get; set; }
     }
