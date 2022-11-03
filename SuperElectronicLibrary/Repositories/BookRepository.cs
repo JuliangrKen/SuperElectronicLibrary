@@ -75,5 +75,17 @@ namespace SuperElectronicLibrary.Repositories
 
             db.SaveChanges();
         }
+
+        public bool ContainsBookNameWithAuthorInLibrary(string nameBook, int auhtorId)
+        {
+            using var db = new AppDbContext();
+
+            var author = new AuthorRepository().GetById(auhtorId);
+
+            if (author is null)
+                throw new ArgumentException();
+
+            return db.Books?.Select(b => b.Tittle == nameBook && b.Authors.Contains(author)).Count() > 0;
+        }
     }
 }
