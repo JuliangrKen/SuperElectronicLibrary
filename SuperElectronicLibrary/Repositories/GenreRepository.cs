@@ -29,12 +29,12 @@ namespace SuperElectronicLibrary.Repositories
         {
             using var db = new AppDbContext();
 
-            var author = db.Genres?.FirstOrDefault(b => b.Id == id);
+            var genre = db.Genres?.FirstOrDefault(b => b.Id == id);
 
-            if (author == null)
+            if (genre == null)
                 throw new ArgumentException();
 
-            return author.Books.Count();
+            return genre.Books.Count();
         }
     }
 }
