@@ -47,5 +47,14 @@ namespace SuperElectronicLibrary.Repositories
        
             db.SaveChanges();
         }
+
+        public int GetNumBooksById(int id)
+        {
+            using var db = new AppDbContext();
+
+            var user = GetById(id);
+
+            return user?.Books?.Count ?? 0;
+        }
     }
 }
