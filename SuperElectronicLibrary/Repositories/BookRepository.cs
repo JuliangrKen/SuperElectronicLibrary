@@ -18,6 +18,23 @@ namespace SuperElectronicLibrary.Repositories
             return db.Books?.FirstOrDefault(b => b.Id == id);
         }
 
+        public List<Book>? GetByGenre(Genre genre)
+        {
+            using var db = new AppDbContext();
+
+            return db.Books?.Where(b => b.Genres.Contains(genre)).ToList();
+        }
+
+        public List<Book>? GetByDates(DateTime firstDate, DateTime lastDate)
+        {
+            if (firstDate > lastDate)
+                throw new ArgumentException();
+
+            using var db = new AppDbContext();
+
+            return db.Books?.Where(b => firstDate < b.YearOfPublication && b.YearOfPublication < lastDate).ToList();
+        }
+
         public void Add(params Book[] Book)
         {
             using var db = new AppDbContext();
