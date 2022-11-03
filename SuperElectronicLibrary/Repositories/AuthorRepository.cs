@@ -17,4 +17,22 @@ public class AuthorRepository
 
         return db.Authors?.FirstOrDefault(b => b.Id == id);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"> Вызывается, если не найден автор </exception>
+    public int GetNumBooksByAuthorId(int id)
+    {
+        using var db = new AppDbContext();
+
+        var author = db.Authors?.FirstOrDefault(b => b.Id == id);
+
+        if (author == null)
+            throw new ArgumentException();
+
+        return author.Books.Count();
+    }
 }
