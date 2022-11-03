@@ -76,7 +76,14 @@ namespace SuperElectronicLibrary.Repositories
             db.SaveChanges();
         }
 
-        public bool ContainsBookNameWithAuthorInLibrary(string nameBook, int auhtorId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nameBook"></param>
+        /// <param name="auhtorId"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"> Вызывается при отсутствующем авторе </exception>
+        public bool ContainsByNameAndAuthor(string nameBook, int auhtorId)
         {
             using var db = new AppDbContext();
 
@@ -86,6 +93,24 @@ namespace SuperElectronicLibrary.Repositories
                 throw new ArgumentException();
 
             return db.Books?.Select(b => b.Tittle == nameBook && b.Authors.Contains(author)).Count() > 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"> вызывается при отсутствующем пользователе </exception>
+        public bool ContainsByUser(int userId)
+        {
+            using var db = new AppDbContext();
+
+            var user = new UserRepository().GetById(userId);
+
+            if (user is null)
+                throw new ArgumentException();
+
+            return db.Books?.Select(b => b.CurrentUser == user).Count() > 0;
         }
     }
 }
