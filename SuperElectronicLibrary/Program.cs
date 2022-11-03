@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using SuperElectronicLibrary;
+
 Console.WriteLine("Hello, World!");
+
+TestDbUtil.Invoke();
