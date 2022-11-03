@@ -112,5 +112,23 @@ namespace SuperElectronicLibrary.Repositories
 
             return db.Books?.Select(b => b.CurrentUser == user).Count() > 0;
         }
+
+        public List<Book>? GetAllWithNameFilter()
+        {
+            using var db = new AppDbContext();
+
+            var books = GetAll();
+
+            return books?.OrderBy(b => b.Tittle).ToList();
+        }
+
+        public List<Book>? GetAllWithYearFilter()
+        {
+            using var db = new AppDbContext();
+
+            var books = GetAll();
+
+            return books?.OrderByDescending(b => b.YearOfPublication).ToList();
+        }
     }
 }
