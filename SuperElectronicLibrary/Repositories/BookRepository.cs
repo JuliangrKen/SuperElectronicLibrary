@@ -18,9 +18,20 @@ namespace SuperElectronicLibrary.Repositories
             return db.Books?.FirstOrDefault(b => b.Id == id);
         }
 
-        public List<Book>? GetByGenre(Genre genre)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"> Вызывается, если не был найден жанр </exception>
+        public List<Book>? GetByGenreId(int genreId)
         {
             using var db = new AppDbContext();
+
+            var genre = db.Genres?.FirstOrDefault(g => g.Id == genreId);
+
+            if (genre is null)
+                throw new ArgumentException();
 
             return db.Books?.Where(b => b.Genres.Contains(genre)).ToList();
         }
